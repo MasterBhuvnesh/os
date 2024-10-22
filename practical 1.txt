@@ -1,0 +1,96 @@
+#!/bin/bash
+
+# IF-ELSE to check if a number is odd or even
+echo "Enter a number: "
+read num
+
+if [ $(($num % 2)) -eq 0 ]; then
+    echo "$num is even."
+else
+    echo "$num is odd."
+fi
+
+# FOR LOOP to print numbers from 1 to 10
+echo "For loop: printing numbers from 1 to 10"
+for ((i=1;i<=10;i++))
+do
+    echo $i
+done
+
+# WHILE LOOP to print numbers from 1 to 10
+echo "While loop: printing numbers from 1 to 10"
+counter=1
+while [ $counter -le 10 ]
+do
+    echo $counter
+    ((counter++))
+done
+
+# SWITCH CASE to handle options
+echo "Enter a choice from 1 to 3:"
+read choice
+case $choice in
+    1)
+        echo "You chose option 1"
+        ;;
+    2)
+        echo "You chose option 2"
+        ;;
+    3)
+        echo "You chose option 3"
+        ;;
+    *)
+        echo "Invalid choice"
+        ;;
+esac
+
+
+
+
+
+
+
+
+
+
+echo "Enter an option to display system information:"
+echo "a for total processors"
+echo "b for cores"
+echo "c for frequency of processor"
+echo "d for physical memory"
+echo "e for free memory details"
+echo "f for total forks"
+echo "g for context switches"
+read choice
+
+case $choice in
+  a)
+    echo "Total processors: $(nproc)"
+    ;;
+  b)
+    echo "Total cores: $(grep -c ^processor /proc/cpuinfo)"
+    ;;
+  c)
+    echo "Processor frequencies (MHz):"
+    grep "MHz" /proc/cpuinfo | awk '{print $4}'
+    ;;
+  d)
+    total_memory=$(grep MemTotal /proc/meminfo | awk '{print $2}')
+    echo "Total physical memory: $(($total_memory / 1024)) MB"
+    ;;
+  e)
+    free_memory=$(grep MemFree /proc/meminfo | awk '{print $2}')
+    echo "Free memory: $(($free_memory / 1024)) MB"
+    ;;
+  f)
+    forks=$(grep processes /proc/stat | awk '{print $2}')
+    echo "Total number of forks since boot: $forks"
+    ;;
+  g)
+    context_switches=$(grep ctxt /proc/stat | awk '{print $2}')
+    echo "Total number of context switches since boot: $context_switches"
+    ;;
+  *)
+    echo "Invalid option"
+    ;;
+esac

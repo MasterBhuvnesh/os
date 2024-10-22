@@ -1,0 +1,161 @@
+// Display message on output device :
+#include <stdio.h>
+#include <unistd.h>
+
+int main() {
+    write(1, "Hello, World!", 14);  // Using write() to display the message on the screen . STDOUT_FILENO=1
+    return 0;
+}
+
+
+// Program to read data and display it
+#include <unistd.h>
+#include <stdio.h>
+
+int main() {
+    char buff[20];
+    int x1, x2;
+
+    // Reading 10 characters from standard input (file descriptor 0)
+    x1 = read(0, buff, 10);
+
+    // Writing 10 characters to standard output (file descriptor 1)
+    x2 = write(1, buff, 10);
+
+    // Printing the number of characters read and written
+    printf("\nNumber of characters read: %d\n", x1);
+    printf("Number of characters written: %d\n", x2);
+
+    return 0;
+}
+
+// Write a program using open system call to read the first 10 characters of an existing file ( test.txt ) and print them  on screen :
+
+#include <unistd.h>
+#include <stdio.h>
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <fcntl.h>
+
+int main() {
+    int fd;             // File descriptor
+    char buff[11];      // Buffer to store 10 characters plus null terminator
+
+    // Open the file in read-only mode
+    fd = open("test.txt", O_RDONLY);
+
+    // Check if the file was opened successfully
+read(fd, buff, 10);
+write(1, buff, bytes_read);
+
+}
+
+
+
+// Write a program to read 10 character from test.txt file and write the content into no
+existing file temp.text :
+
+
+#include<unistd.h>
+
+#include<stdio.h>
+
+#include <sys/types.h>
+
+#include <sys/stat.h>
+
+#include <fcntl.h>
+
+void main()
+
+{
+
+int fd1,fd2;
+
+char buff[10];
+
+fd1=open("test.txt", O_RDONLY); fd2=open("temp.txt", O_CREAT|O_WRONLY, 0642);
+
+read(fd1,buff, 10); write(fd2,buff, 10);
+
+}
+
+
+// Write a program using lseek system call that read 10 character from file test.txt and
+print on the screen and skip next 5 character then again read the 10 character and
+write in on the screen :
+
+#include<unistd.h>
+
+#include<fcntl.h>
+
+#include<sys/types.h>
+
+#include<sys/stat.h>
+
+int main() {
+
+int n,f; char buff[10]; f=open("test.txt", O_RDWR); read(f,buff, 10); write(1,buff,10); lseek(f,5, SEEK_CUR); read(f,buff, 10); write(1,buff,10); }
+
+
+// Write a program using lseek system call that read last 10 character from file test.txt
+and print on the screen :
+
+#include<unistd.h>
+
+#include<stdio.h>
+
+#include <sys/types.h>
+
+#include <sys/stat.h>
+
+#include <fcntl.h>
+
+void main()
+
+{
+
+int fd;
+
+char buff[26]; fd=open("test.txt", O_RDWR); lseek(fd, 16, SEEK_CUR);
+
+read(fd, buff, 10);
+
+write(1,buff,10);
+
+}
+
+
+Write a program to revise the content of file :
+
+#include<unistd.h>
+
+#include<stdio.h>
+
+#include <sys/types.h>
+
+#include <sys/stat.h>
+
+#include <fcntl.h>
+
+void main() {
+
+int fd;
+
+char buff[1];
+
+fd=open("test.txt", O_RDWR);
+
+int i;
+
+for (125;1>=0;1--){
+
+lseek(fd, 1, SEEK_SET);
+
+read(fd, buff, 1);
+
+write(1,buff,1);
+
+}
+
+
